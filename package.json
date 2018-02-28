@@ -1,0 +1,44 @@
+{
+  "name": "pxt-johnny-five",
+  "version": "0.0.1",
+  "description": "Johnny Five target for MakeCode",
+  "keywords": [
+    "JavaScript",
+    "education",
+    "PXT"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microsoft/pxt-johnny-five.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "https://github.com/Microsoft/pxt-johnny-five#readme",
+  "files": [
+    "README.md",
+    "pxtarget.json",
+    "targetconfig.json",
+    "built/*.js",
+    "built/*.json",
+    "built/*.d.ts",
+    "sim/public",
+    "docs/**"
+  ],
+  "main": "built/pxtrequire.js",
+  "typings": "built/pxtrequire.d.ts",
+  "devDependencies": {
+    "typescript": "2.6.1",
+    "less": "^2.6.0",
+    "rtlcss": "^2.1.2",
+    "autoprefixer": "^6.7.6",
+    "semantic-ui-less": "^2.2.4",
+    "@types/bluebird": "2.0.33",
+    "@types/jquery": "3.2.16",
+    "@types/marked": "0.3.0",
+    "@types/node": "8.0.53"
+  },
+  "dependencies": {
+    "johnny-five": "^0.14.1",
+    "pxt-core": "3.*"
+  }
+}

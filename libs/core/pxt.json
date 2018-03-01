@@ -1,14 +1,13 @@
 {
     "name": "core",
-    "description": "A target sample for PXT",
+    "description": "Core target to communicate with Johnny Five",
     "files": [
         "README.md",
         "pxt-core.d.ts",
         "pxt-helpers.ts",
         "enums.d.ts",
         "sims.d.ts",
-        "ns.ts",
-        "led.ts"
+        "ns.ts"
     ],
     "testFiles": [
         "test.ts"

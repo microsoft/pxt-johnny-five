@@ -1,0 +1,11 @@
+{
+    "name": "led",
+    "description": "LED package",
+    "files": [
+        "led.ts"
+    ],
+    "public": true,
+    "dependencies": {
+        "core": "file:../core"
+    }
+}

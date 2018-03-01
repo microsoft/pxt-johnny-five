@@ -1,46 +1,25 @@
 /// <reference path="../libs/core/enums.d.ts"/>
 
-namespace pxsim.turtle {
+namespace pxsim.outputs {
     /**
-     * Moves the sprite forward
-     * @param steps number of steps to move, eg: 1
+     * Blinks an LED for a given duration
      */
-    //% weight=90
-    //% blockId=sampleForward block="forward %steps"
-    export function forwardAsync(steps: number) {
-        return board().sprite.forwardAsync(steps)
+    //% weight=90 promise
+    //% blockId=j5blink block="blink %pin for %duration millis"
+    export function blinkAsync(pin: number, duration: number): Promise<void> {
+        return board().queueRequestAsync(<j5.RPCRequest>{
+            type: "rpc",
+            board: "0",
+            component: "Led",
+            componentArgs: [pin],
+            function: "blink",
+            functionArgs: [duration]
+        }).then();
     }
 
-    /**
-     * Moves the sprite forward
-     * @param direction the direction to turn, eg: Direction.Left
-     * @param angle degrees to turn, eg:90
-     */
-    //% weight=85
-    //% blockId=sampleTurn block="turn %direction|by %angle degrees"
-    export function turnAsync(direction: Direction, angle: number) {
-        let b = board();
-
-        if (direction == Direction.Left)
-            b.sprite.angle -= angle;
-        else
-            b.sprite.angle += angle;
-        return Promise.delay(400)
-    }
-
-    /**
-     * Triggers when the turtle bumps a wall
-     * @param handler 
-     */
-    //% blockId=onBump block="on bump"
-    export function onBump(handler: RefAction) {
-        let b = board();
-
-        b.bus.listen("Turtle", "Bump", handler);
-    }
 }
 
-namespace pxsim.loops {
+namespace pxsim {
 
     /**
      * Repeats the code forever in the background. On each iteration, allows other code to run.
@@ -48,6 +27,7 @@ namespace pxsim.loops {
      */
     //% help=functions/forever weight=55 blockGap=8
     //% blockId=device_forever block="forever" 
+    //% blockNamespace="loops"
     export function forever(body: RefAction): void {
         thread.forever(body)
     }
@@ -58,72 +38,8 @@ namespace pxsim.loops {
      */
     //% help=functions/pause weight=54
     //% block="pause (ms) %pause" blockId=device_pause
+    //% blockNamespace="pause"
     export function pauseAsync(ms: number) {
         return Promise.delay(ms)
-    }
-}
-
-function logMsg(m:string) { console.log(m) }
-
-namespace pxsim.console {
-    /**
-     * Print out message
-     */
-    //% 
-    export function log(msg:string) {
-        logMsg("CONSOLE: " + msg)
-        // why doesn't that work?
-        board().writeSerial(msg + "\n")
-    }
-}
-
-namespace pxsim {
-    /**
-     * A ghost on the screen.
-     */
-    //%
-    export class Sprite {
-        /**
-         * The X-coordiante
-         */
-        //%
-        public x = 100;
-         /**
-         * The Y-coordiante
-         */
-        //%
-        public y = 100;
-        public angle = 90;
-        
-        constructor() {
-        }
-        
-        private foobar() {}
-
-        /**
-         * Move the thing forward
-         */
-        //%
-        public forwardAsync(steps: number) {
-            let deg = this.angle / 180 * Math.PI;
-            this.x += Math.cos(deg) * steps * 10;
-            this.y += Math.sin(deg) * steps * 10;
-            board().updateView();
-
-            if (this.x < 0 || this.y < 0)
-                board().bus.queue("TURTLE", "BUMP");
-
-            return Promise.delay(400)
-        }
-    }
-}
-
-namespace pxsim.sprites {
-    /**
-     * Creates a new sprite
-     */
-    //% blockId="sampleCreate" block="createSprite"
-    export function createSprite(): Sprite {
-        return new Sprite();
     }
 }

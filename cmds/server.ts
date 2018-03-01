@@ -6,6 +6,9 @@ import * as fs from 'fs';
 import * as path from 'path';
 import childProcess = require('child_process');
 
+const log = console.log;
+const debug = console.debug;
+
 /*******************
  * 
  * Johnny Five RPC wrapper
@@ -26,8 +29,10 @@ class J5Board {
     component(name: string, args: any[]): J5Component {
         const id = JSON.stringify({ name, args });
         let component = this.components[id];
-        if (!component)
-            component = this.components[id] = new J5Component(new five[id]());
+        if (!component) {
+            debug(`j5: new ${name}(${args.map(a => a + "").join(',')})`)
+            component = this.components[id] = new J5Component(new five[id](args));
+        }
         return component;
     }
 }
@@ -40,15 +45,20 @@ class J5Component {
 
     }
 
-    call(name: string, args: any): any {
-        return this.component.bind(name).invoke(args);
+    call(name: string, args: any[]): any {
+        debug(`j5: call ${name}(${args.map(a => a + "").join(',')})`)
+        const proto = Object.getPrototypeOf(this.component);
+        const fn = proto[name];
+        args.unshift(this.component);
+        return fn.apply(args);
     }
 }
 
 let boards: pxt.Map<Promise<J5Board>> = {}; // five.Board
 
 function sendResponse(resp: j5.Response) {
-    editors.forEach(editor => editor.send(resp));
+    const msg = JSON.stringify(resp);
+    editors.forEach(editor => editor.send(msg));
 }
 
 /**
@@ -58,18 +68,25 @@ function sendResponse(resp: j5.Response) {
 function boardAsync(id: string): Promise<J5Board> {
     let board = boards[id];
     if (!board) {
-        console.log(`j5: connecting board ${id}`)
+        log(`j5: connecting board ${id}`)
         // need to connect
         board = boards[id] = new Promise((resolve, reject) => {
             const b = new five.Board();
-            b.on("ready", () => resolve(new J5Board(b)))
-            b.on("error", () => reject(new Error("Board not found")));
+            b.on("ready", () => {
+                debug(`j5: board ${id} connected`)
+                resolve(new J5Board(b));
+            })
+            b.on("error", () => {
+                delete boards[id];
+                reject(new Error(`board ${id} not found`))
+            });
         });
     }
     return board;
 }
 
 function handleError(req: j5.Request, error: any) {
+    log(error);
     sendResponse(<j5.ErrorResponse>{
         req,
         status: 500,
@@ -78,7 +95,6 @@ function handleError(req: j5.Request, error: any) {
 }
 
 function handleConnect(req: j5.ConnectRequest) {
-    console.log(`j5: connecting...`)
     boardAsync(req.board)
         .then(() => {
             sendResponse({
@@ -91,8 +107,8 @@ function handleConnect(req: j5.ConnectRequest) {
 
 function handleRpc(req: j5.RPCRequest) {
     boardAsync(req.board)
-        .then(b => b.component(req.component, req.componentArgs))
-        .then(c => c.call(req.function, req.functionArgs))
+        .then(b => b.component(req.component, req.componentArgs || []))
+        .then(c => c.call(req.function, req.functionArgs || []))
         .then(resp => sendResponse(<j5.RPCResponse>{
             req,
             status: 200,
@@ -102,7 +118,7 @@ function handleRpc(req: j5.RPCRequest) {
 }
 
 function handleRequest(req: j5.Request) {
-    console.log(`j5: req ${req.type}`)
+    log(`j5: req ${req.type}`)
     switch (req.type) {
         case "connect":
             handleConnect(req as j5.ConnectRequest);
@@ -119,26 +135,25 @@ const WebSocket = <any>require('faye-websocket');
 const wsserver = http.createServer();
 const editors: WebSocket[] = [];
 function startws(request: any, socket: any, body: any) {
-    console.log(`j5: connecting client...`);
+    log(`j5: connecting client...`);
     let ws = new WebSocket(request, socket, body);
     editors.push(ws);
     ws.on('message', function (event: any) {
-        console.log(event)
         handleRequest(JSON.parse(event.data) as j5.Request);
     });
     ws.on('close', function (event: any) {
-        console.log('j5: connection closed')
+        log('j5: connection closed')
         editors.splice(editors.indexOf(ws), 1)
         ws = null;
     });
     ws.on('error', function () {
-        console.log('j5: connection closed')
+        log('j5: connection closed')
         editors.splice(editors.indexOf(ws), 1)
         ws = null;
     })
 }
 
-console.log('j5: starting...')
+log('j5: starting...')
 wsserver.on('upgrade', function (request: any, socket: any, body: any) {
     if (WebSocket.isWebSocket(request))
         startws(request, socket, body)
@@ -147,4 +162,4 @@ wsserver.on('upgrade', function (request: any, socket: any, body: any) {
 const port = 3074;
 const address = "localhost";
 wsserver.listen(port);
-console.log(`j5: web socket server from ${address}:${port}/`);
+log(`j5: web socket server from ${address}:${port}/`);

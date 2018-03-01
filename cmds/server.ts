@@ -27,7 +27,7 @@ class J5Board {
         const id = JSON.stringify({ name, args });
         let component = this.components[id];
         if (!component)
-            component = this.components[id] = new J5Component(new five[id]);
+            component = this.components[id] = new J5Component(new five.[id]());
         return component;
     }
 }

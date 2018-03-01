@@ -29,7 +29,7 @@ class J5Board {
         let component = this.components[id];
         if (!component) {
             debug(`j5: new ${name}(${args.map(a => a + "").join(',')})`)
-            component = this.components[id] = new J5Component(new five[name](args));
+            component = this.components[id] = new J5Component(this, new five[name](args));
         }
         return component;
     }
@@ -40,7 +40,7 @@ class J5Board {
  */
 class J5Component {
     events: pxt.Map<boolean> = {};
-    constructor(private component: any) {
+    constructor(private board: J5Board, private component: any) {
 
     }
 
@@ -52,6 +52,7 @@ class J5Component {
             sendResponse(<j5.Event>{
                 type: "event",
                 status: 200,
+                board: this.board.id,
                 eventId: id,
                 eventName: name
             });

@@ -19,7 +19,7 @@ namespace pxsim.outputs {
 
 }
 
-namespace pxsim {
+namespace pxsim.loops {
 
     /**
      * Repeats the code forever in the background. On each iteration, allows other code to run.
@@ -27,7 +27,6 @@ namespace pxsim {
      */
     //% help=functions/forever weight=55 blockGap=8
     //% blockId=device_forever block="forever" 
-    //% blockNamespace="loops"
     export function forever(body: RefAction): void {
         thread.forever(body)
     }
@@ -38,7 +37,6 @@ namespace pxsim {
      */
     //% help=functions/pause weight=54
     //% block="pause (ms) %pause" blockId=device_pause
-    //% blockNamespace="pause"
     export function pauseAsync(ms: number) {
         return Promise.delay(ms)
     }

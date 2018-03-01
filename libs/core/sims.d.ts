@@ -1,31 +1,12 @@
 // Auto-generated from simulator. Do not edit.
-declare namespace turtle {
+declare namespace outputs {
     /**
-     * Moves the sprite forward
-     * @param steps number of steps to move, eg: 1
+     * Blinks an LED for a given duration
      */
-    //% weight=90
-    //% blockId=sampleForward block="forward %steps"
-    //% shim=turtle::forwardAsync promise
-    function forward(steps: number): void;
-
-    /**
-     * Moves the sprite forward
-     * @param direction the direction to turn, eg: Direction.Left
-     * @param angle degrees to turn, eg:90
-     */
-    //% weight=85
-    //% blockId=sampleTurn block="turn %direction|by %angle degrees"
-    //% shim=turtle::turnAsync promise
-    function turn(direction: Direction, angle: number): void;
-
-    /**
-     * Triggers when the turtle bumps a wall
-     * @param handler 
-     */
-    //% blockId=onBump block="on bump"
-    //% shim=turtle::onBump
-    function onBump(handler: () => void): void;
+    //% weight=90 promise
+    //% blockId=j5blink block="blink %pin for %duration millis"
+    //% shim=outputs::blinkAsync promise
+    function blink(pin: number, duration: number): void;
 
 }
 declare namespace loops {
@@ -46,51 +27,6 @@ declare namespace loops {
     //% block="pause (ms) %pause" blockId=device_pause
     //% shim=loops::pauseAsync promise
     function pause(ms: number): void;
-
-}
-declare namespace console {
-    /**
-     * Print out message
-     */
-    //%
-    //% shim=console::log
-    function log(msg: string): void;
-
-}
-    /**
-     * A ghost on the screen.
-     */
-    //%
-    declare class Sprite {
-        /**
-         * The X-coordiante
-         */
-        //%
-        //% shim=.x
-        public x: number;
-
-        /**
-         * The Y-coordiante
-         */
-        //%
-        //% shim=.y
-        public y: number;
-
-        /**
-         * Move the thing forward
-         */
-        //%
-        //% shim=.forwardAsync promise
-        public forward(steps: number): void;
-
-    }
-declare namespace sprites {
-    /**
-     * Creates a new sprite
-     */
-    //% blockId="sampleCreate" block="createSprite"
-    //% shim=sprites::createSprite
-    function createSprite(): Sprite;
 
 }
 

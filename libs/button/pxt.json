@@ -1,0 +1,11 @@
+{
+    "name": "button",
+    "description": "Button package",
+    "files": [
+        "button.ts"
+    ],
+    "public": true,
+    "dependencies": {
+        "core": "file:../core"
+    }
+}

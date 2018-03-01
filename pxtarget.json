@@ -9,7 +9,8 @@
     },
     "bundleddirs": [
         "libs/core",
-        "libs/led"
+        "libs/led",
+        "libs/button"
     ],
     "runtime": {
       "mathBlocks": true,

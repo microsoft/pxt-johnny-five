@@ -57,6 +57,8 @@ class J5Component {
             });
         }
         this.call("on", [name, cb]);
+
+        this.events[eid] = true;
     }
 
     call(name: string, args: any[]): any {
@@ -146,7 +148,6 @@ function handleListenEvent(req: j5.ListenEventRequest) {
 }
 
 function handleRequest(req: j5.Request) {
-    log(`j5: req ${req.type}`)
     switch (req.type) {
         case "connect": handleConnect(req as j5.ConnectRequest); break;
         case "call": handleCall(req as j5.CallRequest); break;

@@ -112,9 +112,13 @@ namespace pxsim {
         handleResponse(resp: j5.Response) {
             const id = resp.id;
             const req = this.requests[id];
+            // pending request?
             if (req) {
                 req.resolve(resp);
                 delete this.requests[id];
+            } else if (resp.type === "event") {
+                const ev = resp as j5.Event;
+                this.bus.queue(ev.eventId, ev.eventName);
             }
         }
 

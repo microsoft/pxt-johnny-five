@@ -23,7 +23,7 @@ namespace led {
          * Strobe/Blink the Led on/off in phases over ms
          * @param ms the duration, eg: 100
          */
-        //% blockId=ledstrobe block="strobe %this"
+        //% blockId=ledstrobe block="strobe %this for %ms ms"
         strobe(ms: number) {
             control.rpcCall("Led", [this.pin], "strobe", [ms]);
         }

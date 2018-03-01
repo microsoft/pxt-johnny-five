@@ -39,8 +39,24 @@ class J5Board {
  * A wrapper for a five component like an LED
  */
 class J5Component {
+    events: pxt.Map<boolean> = {};
     constructor(private component: any) {
 
+    }
+
+    on(id: string, name: string) {
+        const eid = id + '.' + name;
+        if (this.events[eid]) return;
+
+        const cb = function () {
+            sendResponse(<j5.Event>{
+                type: "event",
+                status: 200,
+                eventId: id,
+                eventName: name
+            });
+        }
+        this.call("on", [name, cb]);
     }
 
     call(name: string, args: any[]): any {
@@ -102,12 +118,12 @@ function handleConnect(req: j5.ConnectRequest) {
         .catch(e => handleError(req, e));
 }
 
-function handleRpc(req: j5.RPCRequest) {
+function handleCall(req: j5.CallRequest) {
     boardAsync(req.board)
         .then(b => b.component(req.component, req.componentArgs || []))
         .then(c => {
             const resp = c.call(req.function, req.functionArgs || []);
-            sendResponse(<j5.RPCResponse>{
+            sendResponse(<j5.CallResponse>{
                 id: req.id,
                 status: 200,
                 resp: undefined
@@ -116,11 +132,25 @@ function handleRpc(req: j5.RPCRequest) {
         .catch(e => handleError(req, e));
 }
 
+function handleListenEvent(req: j5.ListenEventRequest) {
+    boardAsync(req.board)
+        .then(b => b.component(req.component, req.componentArgs || []))
+        .then(c => {
+            c.on(req.eventId, req.eventName);
+            sendResponse(<j5.Response>{
+                id: req.id,
+                status: 200
+            });
+        })
+        .catch(e => handleError(req, e));
+}
+
 function handleRequest(req: j5.Request) {
     log(`j5: req ${req.type}`)
     switch (req.type) {
         case "connect": handleConnect(req as j5.ConnectRequest); break;
-        case "rpc": handleRpc(req as j5.RPCRequest); break;
+        case "call": handleCall(req as j5.CallRequest); break;
+        case "listenevent": handleListenEvent(req as j5.ListenEventRequest); break;
     }
 }
 

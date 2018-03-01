@@ -10,10 +10,10 @@ namespace pxsim.control {
     export function rpcCallAsync(component: string, componentArgs: number[], fn: string, fnArgs: number[]): Promise<void> {
         const cArgs = (<any>componentArgs).data;
         const fArgs = (<any>fnArgs).data;
-        return board().queueRequestAsync(<j5.RPCRequest>{
-            type: "rpc",
+        return board().queueRequestAsync(<j5.CallRequest>{
+            type: "call",
             board: "0",
-            component: component,
+            component,
             componentArgs: cArgs,
             function: fn,
             functionArgs: fArgs
@@ -26,8 +26,19 @@ namespace pxsim.control {
      * @param componentArgs 
      */
     //% promise
-    export function rpcOnEventAsync(component: string, componentArgs: number[], event: string, handler: () => void): Promise<void> {
-        return Promise.resolve();
+    export function rpcOnEventAsync(component: string, componentArgs: number[], event: string, handler: RefAction): Promise<void> {
+        const cArgs = (<any>componentArgs).data;
+        const b = board();
+        const evid = JSON.stringify({component, cArgs });
+        b.bus.listen(evid, event, handler);
+        return board().queueRequestAsync(<j5.ListenEventRequest>{
+            type: "listenevent",
+            board: "0",
+            component,
+            componentArgs: cArgs,
+            eventId: evid,
+            eventName: event
+        }).then();
     }
 }
 

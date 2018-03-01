@@ -1,12 +1,15 @@
 declare namespace j5 {
-    interface Request {
+    interface Message {}
+
+    interface Request extends Message {
         id?: string; // request id
         type: string; // request type
         board: string; // board id
     }
 
-    interface Response {
-        id: string;
+    interface Response extends Message {
+        id?: string;
+        type?: string;
         status: number;
     }
 
@@ -19,15 +22,29 @@ declare namespace j5 {
         type: "connect";
     }
 
-    interface RPCRequest extends Request {
-        type: "rpc";
+    interface CallRequest extends Request {
+        type: "call";
         component: string;
-        componentArgs?: (number|string)[];
+        componentArgs?: (number | string)[];
         function: string;
-        functionArgs?: (number|string)[];
+        functionArgs?: (number | string)[];
     }
 
-    interface RPCResponse extends Response {
+    interface CallResponse extends Response {
         resp: any;
+    }
+
+    interface ListenEventRequest extends Request {
+        type: "listenevent";
+        component: string;
+        componentArgs?: (number | string)[];
+        eventId: string;
+        eventName: string;
+    }
+
+    interface Event extends Response {
+        type: "event";
+        eventId: string;
+        eventName: string;
     }
 }

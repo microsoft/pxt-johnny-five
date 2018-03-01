@@ -5,9 +5,18 @@ declare namespace control {
      * @param component 
      * @param componentArgs 
      */
-    //%
-    //% shim=control::rpcAsync promise
-    function rpc(component: string, componentArgs: number[], fn: string, fnArgs: number[]): void;
+    //% promise
+    //% shim=control::rpcCallAsync promise
+    function rpcCall(component: string, componentArgs: number[], fn: string, fnArgs: number[]): void;
+
+    /**
+     * Executes an RPC call into Johnny Five
+     * @param component 
+     * @param componentArgs 
+     */
+    //% promise
+    //% shim=control::rpcOnEventAsync promise
+    function rpcOnEvent(component: string, componentArgs: number[], event: string, handler: () => void): void;
 
 }
 declare namespace loops {

@@ -32,7 +32,7 @@ namespace button {
          */
         //% blockId=buttonon block="on %this %event"
         on(event: ButtonEvent, handler: () => void) {
-            // todo control.rpcEvent("Button", [this.pin], eventNames[event], handler);
+            control.rpcOnEvent("Button", [this.pin], eventNames[event], handler);
         }
     }
 

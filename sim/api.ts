@@ -6,8 +6,8 @@ namespace pxsim.control {
      * @param component 
      * @param componentArgs 
      */
-    //%
-    export function rpcAsync(component: string, componentArgs: number[], fn: string, fnArgs: number[]): Promise<void> {
+    //% promise
+    export function rpcCallAsync(component: string, componentArgs: number[], fn: string, fnArgs: number[]): Promise<void> {
         const cArgs = (<any>componentArgs).data;
         const fArgs = (<any>fnArgs).data;
         return board().queueRequestAsync(<j5.RPCRequest>{
@@ -18,6 +18,16 @@ namespace pxsim.control {
             function: fn,
             functionArgs: fArgs
         }).then();
+    }
+
+    /**
+     * Executes an RPC call into Johnny Five
+     * @param component 
+     * @param componentArgs 
+     */
+    //% promise
+    export function rpcOnEventAsync(component: string, componentArgs: number[], event: string, handler: () => void): Promise<void> {
+        return Promise.resolve();
     }
 }
 

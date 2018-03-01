@@ -15,8 +15,8 @@ namespace led {
         //% blockId=ledOn block="set %this %on"
         //% on.fieldEditor=toggleonoff
         set(on: boolean) {
-            if (on) control.rpc("Led", [this.pin], "on", []);
-            else control.rpc("Led", [this.pin], "off", [])
+            if (on) control.rpcCall("Led", [this.pin], "on", []);
+            else control.rpcCall("Led", [this.pin], "off", [])
         }
 
         /**
@@ -25,7 +25,7 @@ namespace led {
          */
         //% blockId=ledstrobe block="strobe %this"
         strobe(ms: number) {
-            control.rpc("Led", [this.pin], "strobe", [ms]);
+            control.rpcCall("Led", [this.pin], "strobe", [ms]);
         }
 
         /** 
@@ -34,7 +34,7 @@ namespace led {
         */
         //% blockId=ledStop block="stop %this"
         stop() {
-            control.rpc("Led", [this.pin], "stop", []);            
+            control.rpcCall("Led", [this.pin], "stop", []);            
         }
     }
 

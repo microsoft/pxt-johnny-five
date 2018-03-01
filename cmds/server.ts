@@ -141,4 +141,4 @@ wsserver.on('upgrade', function (request: any, socket: any, body: any) {
 const port = 3074;
 const address = "localhost";
 wsserver.listen(port);
-console.log(`mc: web socket server from ${address}:${port}/`);
+console.log(`j5: web socket server from ${address}:${port}/`);

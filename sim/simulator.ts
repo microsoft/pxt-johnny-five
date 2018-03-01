@@ -103,7 +103,7 @@ namespace pxsim {
                             time: new Date().getTime()
                         };
                         this.requests[id] = r;
-                        ws.send(req);
+                        ws.send(JSON.stringify(req));
                     })
                     else return undefined;
                 });

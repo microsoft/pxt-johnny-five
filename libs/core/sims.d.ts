@@ -1,14 +1,13 @@
 // Auto-generated from simulator. Do not edit.
-declare namespace outputs {
+declare namespace control {
     /**
-     * Blinks an LED for a given duration
-     * @param pin the pin, eg: 13
-     * @param duration the duration, eg: 500
+     * Executes an RPC call into Johnny Five
+     * @param component 
+     * @param componentArgs 
      */
-    //% weight=90 promise
-    //% blockId=j5blink block="blink %pin for %duration millis"
-    //% shim=outputs::blinkAsync promise
-    function blink(pin: number, duration: number): void;
+    //%
+    //% shim=control::rpcAsync promise
+    function rpc(component: string, componentArgs: number[], fn: string, fnArgs: number[]): void;
 
 }
 declare namespace loops {

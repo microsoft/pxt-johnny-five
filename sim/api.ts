@@ -1,24 +1,24 @@
 /// <reference path="../libs/core/enums.d.ts"/>
 
-namespace pxsim.outputs {
+namespace pxsim.control {
     /**
-     * Blinks an LED for a given duration
-     * @param pin the pin, eg: 13
-     * @param duration the duration, eg: 500
+     * Executes an RPC call into Johnny Five
+     * @param component 
+     * @param componentArgs 
      */
-    //% weight=90 promise
-    //% blockId=j5blink block="blink %pin for %duration millis"
-    export function blinkAsync(pin: number, duration: number): Promise<void> {
+    //%
+    export function rpcAsync(component: string, componentArgs: number[], fn: string, fnArgs: number[]): Promise<void> {
+        const cArgs = (<any>componentArgs).data;
+        const fArgs = (<any>fnArgs).data;
         return board().queueRequestAsync(<j5.RPCRequest>{
             type: "rpc",
             board: "0",
-            component: "Led",
-            componentArgs: [pin >> 0],
-            function: "blink",
-            functionArgs: [duration]
+            component: component,
+            componentArgs: cArgs,
+            function: fn,
+            functionArgs: fArgs
         }).then();
     }
-
 }
 
 namespace pxsim.loops {

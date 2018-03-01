@@ -110,7 +110,7 @@ namespace pxsim {
         }
 
         handleResponse(resp: j5.Response) {
-            const id = resp.req.id;
+            const id = resp.id;
             const req = this.requests[id];
             if (req) {
                 req.resolve(resp);

@@ -21,10 +21,8 @@
     },
     "simulator": {
         "autoRun": true,
-        "hideRestart": true,
         "hideFullscreen": true,
-        "headless": true,
-        "enableTrace": true
+        "headless": true
     },
     "appTheme": {
         "logoUrl": "https://github.com/Microsoft/pxt-sample",

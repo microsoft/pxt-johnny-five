@@ -2,6 +2,8 @@
 declare namespace outputs {
     /**
      * Blinks an LED for a given duration
+     * @param pin the pin, eg: 13
+     * @param duration the duration, eg: 500
      */
     //% weight=90 promise
     //% blockId=j5blink block="blink %pin for %duration millis"

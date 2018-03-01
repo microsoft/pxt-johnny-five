@@ -11,7 +11,7 @@ namespace pxsim.outputs {
             type: "rpc",
             board: "0",
             component: "Led",
-            componentArgs: [pin],
+            componentArgs: [pin >> 0],
             function: "blink",
             functionArgs: [duration]
         }).then();

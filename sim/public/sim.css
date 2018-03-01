@@ -1,9 +1,20 @@
-svg {
-    width:100%;
+.sim-log {
+    background: #444;
+    color:#fff;
+    bottom: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding: 0.5em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family:'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace !important;
+    font-size: 0.8rem;
 }
 
-.sprite {
-    fill:yellow;
-    stroke:#ccc;
-    stroke-width: 3px;
+.sim-command {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top:1rem;
+    margin-bottom: 1rem;
 }

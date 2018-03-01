@@ -1,6 +1,6 @@
 declare namespace j5 {
     interface Request {
-        id: string; // message id
+        id?: string; // message id
         type: "connect" | "rpc";
         board: string; // board id
     }

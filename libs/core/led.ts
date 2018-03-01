@@ -1,4 +1,4 @@
-namespace five {
+namespace led {
     /**
      * An LED
      */
@@ -12,7 +12,7 @@ namespace five {
         /**
          * Turn the LED on or off
          */
-        //% blockId=ledOn block="%this %on"
+        //% blockId=ledOn block="set %this %on"
         //% on.fieldEditor=toggleonoff
         set(on: boolean) {
             if (on) control.rpc("Led", [this.pin], "on", []);

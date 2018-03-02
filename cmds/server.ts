@@ -92,6 +92,9 @@ function boardAsync(id: string): Promise<J5Board> {
                 debug(`j5: board ${id} connected`)
                 resolve(new J5Board(b));
             })
+            b.on("exit", () => {
+                delete boards[id];                
+            })
             b.on("error", () => {
                 delete boards[id];
                 reject(new Error(`board ${id} not found`))

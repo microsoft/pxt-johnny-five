@@ -1,13 +1,13 @@
 // Auto-generated from simulator. Do not edit.
-declare namespace control {
+declare namespace five {
     /**
      * Executes an RPC call into Johnny Five
      * @param component 
      * @param componentArgs 
      */
     //% promise
-    //% shim=control::rpcCallAsync promise
-    function rpcCall(component: string, componentArgs: number[], fn: string, fnArgs: number[]): void;
+    //% shim=five::rpcCallAsync promise
+    function rpcCall(component: string, componentArgs: Options, fn: string, fnArgs: number[]): void;
 
     /**
      * Executes an RPC call into Johnny Five
@@ -15,8 +15,8 @@ declare namespace control {
      * @param componentArgs 
      */
     //% promise
-    //% shim=control::rpcOnEventAsync promise
-    function rpcOnEvent(component: string, componentArgs: number[], event: string, handler: () => void): void;
+    //% shim=five::rpcOnEventAsync promise
+    function rpcOnEvent(component: string, componentArgs: Options, event: string, handler: () => void): void;
 
 }
 declare namespace loops {

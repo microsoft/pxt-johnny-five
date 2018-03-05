@@ -1,18 +1,20 @@
 /// <reference path="../libs/core/enums.d.ts"/>
 
-namespace pxsim.control {
+namespace pxsim.five {
     /**
      * Executes an RPC call into Johnny Five
      * @param component 
      * @param componentArgs 
      */
     //% promise
-    export function rpcCallAsync(component: string, componentArgs: number[], fn: string, fnArgs: number[]): Promise<void> {
-        const cArgs = (<any>componentArgs).data;
-        const fArgs = (<any>fnArgs).data;
-        return board().queueRequestAsync(<j5.CallRequest>{
+    export function rpcCallAsync(component: string, componentArgs: Options, fn: string, fnArgs: number[]): Promise<void> {
+        const cArgs = (<any>componentArgs).toAny() as Options;
+        const fArgs = (<any>fnArgs).toAny() as number[];
+        const boardId = cArgs.board;
+        const b = board();        
+        return b.queueRequestAsync(<j5.CallRequest>{
             type: "call",
-            board: "0",
+            board: boardId || "0",
             component,
             componentArgs: cArgs,
             function: fn,
@@ -26,14 +28,15 @@ namespace pxsim.control {
      * @param componentArgs 
      */
     //% promise
-    export function rpcOnEventAsync(component: string, componentArgs: number[], event: string, handler: RefAction): Promise<void> {
+    export function rpcOnEventAsync(component: string, componentArgs: Options, event: string, handler: RefAction): Promise<void> {
         const cArgs = (<any>componentArgs).data;
-        const b = board();
+        const boardId = "";
+        const b = board();        
         const evid = JSON.stringify({component, cArgs });
         b.bus.listen(evid, event, handler);
-        return board().queueRequestAsync(<j5.ListenEventRequest>{
+        return b.queueRequestAsync(<j5.ListenEventRequest>{
             type: "listenevent",
-            board: "0",
+            board: boardId || "0",
             component,
             componentArgs: cArgs,
             eventId: evid,

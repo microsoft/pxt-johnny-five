@@ -1,12 +1,16 @@
 namespace led {
+    interface LedOptions extends Options {
+        pin: number;
+        controller?: string;
+    }
+    
     /**
      * An LED
      */
     //% fixedInstances
-    export class Led {
-        pin: number;
-        constructor(pin: number) {
-            this.pin = pin;
+    export class Led extends five.Component {
+        constructor(options: LedOptions) {
+            super(options)
         }
 
         /**
@@ -15,8 +19,8 @@ namespace led {
         //% blockId=ledOn block="set %this %on"
         //% on.fieldEditor=toggleonoff
         set(on: boolean) {
-            if (on) control.rpcCall("Led", [this.pin], "on", []);
-            else control.rpcCall("Led", [this.pin], "off", [])
+            if (on) five.rpcCall("Led", this.options, "on", []);
+            else five.rpcCall("Led", this.options, "off", [])
         }
 
         /**
@@ -25,7 +29,7 @@ namespace led {
          */
         //% blockId=ledstrobe block="strobe %this for %ms ms"
         strobe(ms: number) {
-            control.rpcCall("Led", [this.pin], "strobe", [ms]);
+            five.rpcCall("Led", this.options, "strobe", [ms]);
         }
 
         /** 
@@ -34,10 +38,10 @@ namespace led {
         */
         //% blockId=ledStop block="stop %this"
         stop() {
-            control.rpcCall("Led", [this.pin], "stop", []);            
+            five.rpcCall("Led", this.options, "stop", []);
         }
     }
 
     //% fixedInstance block="led 13"
-    export const led13 = new Led(13);
+    export const led13 = new Led({ pin: 13 });
 }

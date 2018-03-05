@@ -26,6 +26,9 @@
         "hideFullscreen": true,
         "headless": true
     },
+    "compile": {
+        "isNative": false
+    },
     "appTheme": {
         "logoUrl": "https://github.com/Microsoft/pxt-sample",
         "homeUrl": "http://microsoft.github.io/pxt-sample/",
@@ -60,5 +63,5 @@
         "monacoColors": {
             "editor.background": "#ecf0f1"
         }
-    }
+    }   
 }

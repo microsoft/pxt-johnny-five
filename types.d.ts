@@ -1,3 +1,7 @@
+declare interface Options {
+    board?: string;
+}
+
 declare namespace j5 {
     interface Message {}
 
@@ -25,9 +29,9 @@ declare namespace j5 {
     interface CallRequest extends Request {
         type: "call";
         component: string;
-        componentArgs?: (number | string)[];
+        componentArgs?: Options;
         function: string;
-        functionArgs?: (number | string)[];
+        functionArgs?: number[];
     }
 
     interface CallResponse extends Response {
@@ -37,7 +41,7 @@ declare namespace j5 {
     interface ListenEventRequest extends Request {
         type: "listenevent";
         component: string;
-        componentArgs?: (number | string)[];
+        componentArgs?: Options;
         eventId: string;
         eventName: string;
     }

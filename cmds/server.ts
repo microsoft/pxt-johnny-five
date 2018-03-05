@@ -24,11 +24,10 @@ class J5Board {
 
     constructor(private board: any) { }
 
-    component(name: string, args: any[]): J5Component {
+    component(name: string, args: Options): J5Component {
         const id = JSON.stringify({ name, args });
         let component = this.components[id];
         if (!component) {
-            debug(`j5: new ${name}(${args.map(a => a + "").join(',')})`)
             component = this.components[id] = new J5Component(this, new five[name](args));
         }
         return component;
@@ -63,7 +62,6 @@ class J5Component {
     }
 
     call(name: string, args: any[]): any {
-        debug(`j5: call ${name}(${args.map(a => a + "").join(',')})`)
         const proto = Object.getPrototypeOf(this.component);
         const fn = proto[name];
         return fn.apply(this.component, args);
@@ -126,7 +124,7 @@ function handleConnect(req: j5.ConnectRequest) {
 
 function handleCall(req: j5.CallRequest) {
     boardAsync(req.board)
-        .then(b => b.component(req.component, req.componentArgs || []))
+        .then(b => b.component(req.component, req.componentArgs || <Options>{}))
         .then(c => {
             const resp = c.call(req.function, req.functionArgs || []);
             sendResponse(<j5.CallResponse>{
@@ -140,7 +138,7 @@ function handleCall(req: j5.CallRequest) {
 
 function handleListenEvent(req: j5.ListenEventRequest) {
     boardAsync(req.board)
-        .then(b => b.component(req.component, req.componentArgs || []))
+        .then(b => b.component(req.component, req.componentArgs || <Options>{}))
         .then(c => {
             c.on(req.eventId, req.eventName);
             sendResponse(<j5.Response>{

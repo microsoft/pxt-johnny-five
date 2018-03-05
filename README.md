@@ -1,11 +1,11 @@
-# Sample target for a Microsoft MakeCode Editor
+# MakeCode for Johnny-Five [![Build Status](https://travis-ci.org/Microsoft/pxt-johnny-five.svg?branch=master)](https://travis-ci.org/Microsoft/pxt-johnny-five)
 
-This repo contains a sample editor built with [Microsoft MakeCode (PXT)](https://github.com/Microsoft/pxt)
-and [Johnny Five](http://johnny-five.io/)
 
-## Running locally
+This repo contains a [Microsoft MakeCode](https://github.com/Microsoft/pxt) editor for [Johnny Five](http://johnny-five.io/)
 
-These instructions allow to run locally to modify the sample.
+## Running
+
+This instruction explain how to run the editor locally.
 
 ### Setup
 

@@ -11,6 +11,10 @@ enum ButtonEvent {
 namespace button {
     interface ButtonOptions extends Options {
         pin: number;
+        invert?: boolean;
+        isPullUp?: boolean;
+        isPullDown?: boolean;
+        holdtime?: number;
     }
 
     const eventNames = [
@@ -24,6 +28,10 @@ namespace button {
      */
     //% fixedInstances
     export class Button extends five.Component {
+        /**
+         * Creates a new button instance
+         * @param options 
+         */
         constructor(options: ButtonOptions) {
             super(options);
         }

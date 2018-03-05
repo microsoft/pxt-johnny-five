@@ -85,7 +85,12 @@ function boardAsync(id: string): Promise<J5Board> {
         log(`j5: connecting board ${id}`)
         // need to connect
         board = boards[id] = new Promise((resolve, reject) => {
-            const b = new five.Board();
+            const args = {
+                id: id,
+                repl: false,
+                timeout: 3                
+            }
+            const b = new five.Board(args);
             b.on("ready", () => {
                 debug(`j5: board ${id} connected`)
                 resolve(new J5Board(b));

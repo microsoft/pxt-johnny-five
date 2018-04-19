@@ -1,0 +1,5 @@
+{
+  "button.Button": "A Button",
+  "button.Button.on": "Registers a callback for a given event",
+  "button.Button.on|param|event": "@param handler "
+}

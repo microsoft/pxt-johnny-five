@@ -1,0 +1,8 @@
+{
+  "led.Led.set|block": "set %this %on",
+  "led.Led.stop|block": "stop %this",
+  "led.Led.strobe|block": "strobe %this for %ms ms",
+  "led.led13|block": "led 13",
+  "led|block": "led",
+  "{id:category}Led": "Led"
+}

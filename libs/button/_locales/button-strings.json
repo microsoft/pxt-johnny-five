@@ -1,0 +1,12 @@
+{
+  "ButtonEvent.Down|block": "down",
+  "ButtonEvent.Hold|block": "hold",
+  "ButtonEvent.Up|block": "up",
+  "button.Button.on|block": "on %this %event",
+  "button.button2|block": "button 2",
+  "button.button3|block": "button 3",
+  "button.button4|block": "button 4",
+  "button.button5|block": "button 5",
+  "button|block": "button",
+  "{id:category}Button": "Button"
+}

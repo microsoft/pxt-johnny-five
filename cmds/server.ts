@@ -1,5 +1,6 @@
 /// <reference path="faye-websocket.d.ts"/>
 /// <reference path="../types.d.ts" />
+/// <reference path="../node_modules/pxt-core/built/pxtlib.d.ts" />
 
 import * as http from 'http';
 import * as fs from 'fs';

@@ -1,0 +1,7 @@
+{
+  "led.Led": "An LED",
+  "led.Led.set": "Turn the LED on or off",
+  "led.Led.stop": "Stops animations",
+  "led.Led.strobe": "Strobe/Blink the Led on/off in phases over ms",
+  "led.Led.strobe|param|ms": "the duration, eg: 100"
+}

@@ -1,6 +1,6 @@
 {
   "name": "pxt-johnny-five",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Johnny-Five for MakeCode",
   "keywords": [
     "JavaScript",

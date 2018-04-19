@@ -40,7 +40,6 @@
   "dependencies": {
     "faye-websocket": "^0.11.0",
     "johnny-five": "^0.14.1",
-    "pxt-core": "3.*",
-    "restify": "^7.1.1"
+    "pxt-core": "3.*"
   }
 }

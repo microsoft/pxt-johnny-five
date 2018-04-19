@@ -165,8 +165,33 @@ function handleRequest(req: j5.Request) {
 
 
 // web socket connection to editor(s)
+const port = 3074;
+const hostname = '127.0.0.1';
 const WebSocket = <any>require('faye-websocket');
-const wsserver = http.createServer();
+const wsserver = http.createServer((req, res) => {
+    console.log(`${req.method} ${req.url}`)
+    res.setHeader('Access-Control-Allow-Origin', `http://localhost:3232`);
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    switch (req.method) {
+        case "OPTIONS":
+            res.statusCode = 200;
+            res.end();
+            break;
+        case "POST":
+            res.setHeader('Content-Type', 'application/json');
+            let jsonString = '';
+            req.on('data', function (data) {
+                jsonString += data;
+            });
+            req.on('end', function () {
+                let prj = JSON.parse(jsonString);
+                res.statusCode = 200;
+                res.end(JSON.stringify(prj));
+            });
+            break;
+    }
+});
+
 const editors: WebSocket[] = [];
 function startws(request: any, socket: any, body: any) {
     log(`j5: connecting client...`);
@@ -186,28 +211,10 @@ function startws(request: any, socket: any, body: any) {
         ws = null;
     })
 }
-
-log('j5: starting...')
 wsserver.on('upgrade', function (request: any, socket: any, body: any) {
     if (WebSocket.isWebSocket(request))
         startws(request, socket, body)
 });
 
-const port = 3074;
-const address = "localhost";
 wsserver.listen(port);
-log(`j5: sim listening at ${address}:${port}/`);
-
-const restify = require('restify');
-const server = restify.createServer();
-server.use(restify.plugins.queryParser());
-server.use(restify.plugins.bodyParser());
-server.get('/save', function (req: any, res: any, next: any) {
-    console.log(req.body);
-    res.send(200);
-    return next();
-});
-
-server.listen(port + 1, function () {
-    console.log('j5: %s listening at %s', server.name, server.url);
-});
+log(`j5: sim listening at ${hostname}:${port}/`);

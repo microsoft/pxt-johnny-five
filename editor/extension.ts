@@ -6,8 +6,8 @@ namespace pxt.editor {
         const res: pxt.editor.ExtensionResult = {
             /* called when user presses the save button */
             saveProjectAsync: (res: pxt.cpp.HexFile) => {
-                const port = 3075;
-                return pxt.Util.httpPostJsonAsync(`http://127.0.0.1:${port}/save`, res)
+                const port = 3074;
+                return pxt.Util.httpPostJsonAsync(`http://localhost:${port}/save`, res)
                     .then(() => {});
             }
         };

@@ -89,7 +89,7 @@ function boardAsync(id: string): Promise<J5Board> {
             const args = {
                 id: id,
                 repl: false,
-                timeout: 3                
+                timeout: 3
             }
             const b = new five.Board(args);
             b.on("ready", () => {
@@ -97,7 +97,7 @@ function boardAsync(id: string): Promise<J5Board> {
                 resolve(new J5Board(b));
             })
             b.on("exit", () => {
-                delete boards[id];                
+                delete boards[id];
             })
             b.on("error", () => {
                 delete boards[id];
@@ -196,4 +196,18 @@ wsserver.on('upgrade', function (request: any, socket: any, body: any) {
 const port = 3074;
 const address = "localhost";
 wsserver.listen(port);
-log(`j5: web socket server from ${address}:${port}/`);
+log(`j5: sim listening at ${address}:${port}/`);
+
+const restify = require('restify');
+const server = restify.createServer();
+server.use(restify.plugins.queryParser());
+server.use(restify.plugins.bodyParser());
+server.get('/save', function (req: any, res: any, next: any) {
+    console.log(req.body);
+    res.send(200);
+    return next();
+});
+
+server.listen(port + 1, function () {
+    console.log('j5: %s listening at %s', server.name, server.url);
+});

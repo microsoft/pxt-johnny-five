@@ -1,12 +1,13 @@
 {
   "name": "pxt-johnny-five",
   "version": "0.0.2",
-  "description": "Johnny Five target for MakeCode",
+  "description": "Johnny-Five for MakeCode",
   "keywords": [
     "JavaScript",
     "education",
     "PXT",
-    "MakeCode"
+    "MakeCode",
+    "J5"
   ],
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
   "dependencies": {
     "faye-websocket": "^0.11.0",
     "johnny-five": "^0.14.1",
-    "pxt-core": "3.*"
+    "pxt-core": "3.*",
+    "restify": "^7.1.1"
   }
 }

@@ -1,4 +1,5 @@
 {
+  "led": "LED control",
   "led.Led": "An LED",
   "led.Led.set": "Turn the LED on or off",
   "led.Led.stop": "Stops animations",

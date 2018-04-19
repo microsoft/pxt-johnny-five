@@ -1,7 +1,7 @@
 {
-    "id": "sample",
-    "name": "sample",
-    "title": "MakeCode Editor Sample",
+    "id": "j5",
+    "name": "MakeCode J5",
+    "title": "Microsoft MakeCode for Johnny-Five",
     "corepkg": "core",
     "cloud": {
         "workspace": false,
@@ -37,6 +37,7 @@
         "termsOfUseUrl": "https://go.microsoft.com/fwlink/?LinkID=206977",
         "betaUrl": "https://makecode.com/",
         "extendEditor": true,
+        "accentColor": "#F3DF49",
         "docMenu": [
             {
                 "name": "About",

@@ -1,3 +1,7 @@
+/**
+ * LED control
+ */
+//% weight=100 color=#661141 icon="\uf0eb"
 namespace led {
     interface LedOptions extends Options {
         pin: number;

@@ -29,7 +29,7 @@ namespace pxsim.five {
      */
     //% promise
     export function rpcOnEventAsync(component: string, componentArgs: Options, event: string, handler: RefAction): Promise<void> {
-        const cArgs = (<any>componentArgs).data;
+        const cArgs = (<any>componentArgs).toAny() as Options;
         const boardId = "";
         const b = board();        
         const evid = JSON.stringify({component, cArgs });

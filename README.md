@@ -1,5 +1,7 @@
-# MakeCode for Johnny-Five [![Build Status](https://travis-ci.org/Microsoft/pxt-johnny-five.svg?branch=master)](https://travis-ci.org/Microsoft/pxt-johnny-five)
+# MakeCode for Johnny-Five 
 
+[![Build Status](https://travis-ci.org/Microsoft/pxt-johnny-five.svg?branch=master)](https://travis-ci.org/Microsoft/pxt-johnny-five)
+[![Community Discord](https://img.shields.io/discord/448979533891371018.svg)](https://aka.ms/makecodecommunity)
 
 This repo contains a [Microsoft MakeCode](https://github.com/Microsoft/pxt) editor for [Johnny Five](http://johnny-five.io/)
 

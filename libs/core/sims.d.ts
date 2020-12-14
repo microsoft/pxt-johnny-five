@@ -7,7 +7,7 @@ declare namespace five {
      */
     //% promise
     //% shim=five::rpcCallAsync promise
-    function rpcCall(component: string, componentArgs: Options, fn: string, fnArgs: number[]): void;
+    function rpcCall(component: string, componentArgs: Options, fn: string, fnArgs: {}): void;
 
     /**
      * Executes an RPC call into Johnny Five
